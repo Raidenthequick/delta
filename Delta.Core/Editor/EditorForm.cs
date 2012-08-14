@@ -36,5 +36,28 @@ namespace Delta.Editor
         {
             grdProperty.Refresh();
         }
+
+        //adds objects to the editor form's list
+        public void AddObjects(List<object> objs)
+        {
+            //uses ToString() for the name
+            objs.ForEach((o) => listBoxObjects.Items.Add(o));
+        }
+
+        //clears object list
+        public void ClearObjects()
+        {
+            listBoxObjects.Items.Clear();
+        }
+
+        private void listBoxObjects_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxObjects.SelectedIndex < 0)
+            {
+                return;
+            }
+
+            grdProperty.SelectedObject = listBoxObjects.SelectedItem;
+        }
     }
 }
