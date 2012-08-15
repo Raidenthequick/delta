@@ -173,6 +173,13 @@ namespace Delta
                 else
                     _refreshPropertyGridTimer -= _time.ElapsedSeconds;
             }
+
+            //mouse events
+            if (G.Input.Mouse.MouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed
+                && Form.ActiveForm == Form.FromHandle(this.Window.Handle))
+            {
+                OnLeftClick();
+            }
 #endif
         }
 
@@ -223,5 +230,19 @@ namespace Delta
             }
         }
 
+        //OnClick "event", override for custom mouse behavior
+        protected virtual void OnLeftClick()
+        {
+            foreach (var entity in
+                from gameComponent in Entity.GlobalEntities
+                select gameComponent as TransformableEntity)
+            {
+                if (entity != null && entity.IsVisible
+                    && entity.BoundingBox.Contains(G.World.Camera.ToWorldPosition(G.Input.Mouse.Position).ToPoint()))
+                {
+                    G.EditorForm.grdProperty.SelectedObject = entity;
+                }
+            }
+        }
     }
 }

@@ -188,6 +188,14 @@ namespace Delta
             }
         }
 
+        /// <summary>
+        /// return a rectangle of the entity's bounding box
+        /// </summary>
+        public Rectangle BoundingBox
+        {
+            get { return new Rectangle((int)(Position.X + Offset.X - RenderOrigin.X), (int)(Position.Y + Offset.Y - RenderOrigin.Y), (int)(Size.X * Scale.X), (int)(Size.Y * Scale.Y)); }
+        }
+
         [ContentSerializer(ElementName = "Color")]
         Color _tint = Color.White;
         /// <summary>
