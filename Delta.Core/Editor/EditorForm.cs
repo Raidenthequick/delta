@@ -50,6 +50,12 @@ namespace Delta.Editor
             listBoxObjects.Items.Clear();
         }
 
+        //selects an object in the listbox which then, based on event, selects in grid
+        public void SelectObject(object obj)
+        {
+            listBoxObjects.SelectedItem = obj;
+        }
+
         private void listBoxObjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxObjects.SelectedIndex < 0)

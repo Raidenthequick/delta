@@ -35,6 +35,8 @@ namespace Delta
 #if WINDOWS
         internal static bool _refreshPropertyGrid = false;
         internal static float _refreshPropertyGridTimer = 0;
+        int _debugObjectIndex = 0;
+        List<Entity> _debugObjects = new List<Entity>();
 #endif
 
         internal static ResourceContentManager _embedded = null;
@@ -180,6 +182,16 @@ namespace Delta
             {
                 OnLeftClick();
             }
+
+            //key events
+            if (G.Input.Keyboard.IsPressed(Microsoft.Xna.Framework.Input.Keys.LeftControl))
+            {
+                OnLeftControl();
+            }
+            if (G.Input.Keyboard.IsPressed(Microsoft.Xna.Framework.Input.Keys.RightControl))
+            {
+                OnRightControl();
+            }
 #endif
         }
 
@@ -230,19 +242,59 @@ namespace Delta
             }
         }
 
-        //OnClick "event", override for custom mouse behavior
-        protected virtual void OnLeftClick()
+#if WINDOWS
+        //grabs all entities at current mouse cursor coordinates
+        protected void GetEntitiesAtMouse()
         {
+            _debugObjects.Clear();
+
             foreach (var entity in
-                from gameComponent in Entity.GlobalEntities
-                select gameComponent as TransformableEntity)
+            from gameComponent in Entity.GlobalEntities
+            select gameComponent as TransformableEntity)
             {
                 if (entity != null && entity.IsVisible
                     && entity.BoundingBox.Contains(G.World.Camera.ToWorldPosition(G.Input.Mouse.Position).ToPoint()))
                 {
-                    G.EditorForm.grdProperty.SelectedObject = entity;
+                    _debugObjects.Add(entity);
                 }
             }
         }
+
+        //selects an entity in the property grid at the current index within the debug entity list
+        private void SelectEntity()
+        {
+            if (_debugObjects.Count > 0)
+            {
+                G.EditorForm.SelectObject(_debugObjects[_debugObjectIndex]);
+            }
+        }
+
+        //OnClick "event", override for custom mouse behavior
+        protected virtual void OnLeftClick()
+        {
+            //trap all found at mouse
+            GetEntitiesAtMouse();
+
+            //choose first found
+            _debugObjectIndex = 0;
+            SelectEntity();
+        }
+
+        //custom key events
+        protected virtual void OnLeftControl()
+        {
+            //for left control, decrement index
+            _debugObjectIndex = (_debugObjectIndex - 1).Wrap(0, _debugObjects.Count - 1);
+            SelectEntity();
+        }
+
+        protected virtual void OnRightControl()
+        {
+            //for right control, increment index
+            _debugObjectIndex = (_debugObjectIndex + 1).Wrap(0, _debugObjects.Count - 1);
+            SelectEntity();
+        }
+#endif
+
     }
 }
