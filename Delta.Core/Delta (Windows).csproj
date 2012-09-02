@@ -304,7 +304,12 @@
     <None Include="Resources\SimpleEffect.xnb" />
     <None Include="Resources\TinyFont.xnb" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SharpSerializer.Library\SharpSerializer.Library.csproj">
+      <Project>{88AB738F-7A36-4C93-B808-B6CE2D3444B2}</Project>
+      <Name>SharpSerializer.Library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--
