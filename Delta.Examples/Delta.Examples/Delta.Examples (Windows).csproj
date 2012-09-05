@@ -151,6 +151,10 @@
       <Project>{E50545DF-9329-4B3D-8579-943F91A42C66}</Project>
       <Name>Delta %28Windows%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\SharpSerializer.Library\SharpSerializer.Library.csproj">
+      <Project>{88AB738F-7A36-4C93-B808-B6CE2D3444B2}</Project>
+      <Name>SharpSerializer.Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

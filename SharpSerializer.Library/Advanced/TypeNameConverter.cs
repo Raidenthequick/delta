@@ -29,6 +29,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Reflection;
 using Polenter.Serialization.Advanced.Serializing;
 
 namespace Polenter.Serialization.Advanced
@@ -93,7 +94,7 @@ namespace Polenter.Serialization.Advanced
                 return _cache[type];
             }
 
-            string typename = type.AssemblyQualifiedName;
+            string typename = type.ToString();
 
             if (!IncludeAssemblyVersion)
             {
@@ -124,7 +125,19 @@ namespace Polenter.Serialization.Advanced
         public Type ConvertToType(string typeName)
         {
             if (string.IsNullOrEmpty(typeName)) return null;
-            Type type = Type.GetType(typeName, true);
+
+            //search all assemblies
+            Type type = null;
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                Type t = assembly.GetType(typeName, false, true);
+                if (t != null)
+                {
+                    //first found
+                    type = t;
+                    break;
+                }
+            }
             return type;
         }
 

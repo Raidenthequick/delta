@@ -10,7 +10,8 @@
     <RootNamespace>Delta.Bootstrap</RootNamespace>
     <AssemblyName>Delta.Bootstrap</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile></TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
     <XnaProfile>HiDef</XnaProfile>
@@ -119,6 +120,10 @@
     <ProjectReference Include="..\Delta.Examples\Delta.Examples\Delta.Examples %28Windows%29.csproj">
       <Project>{9AB83C8B-D8DA-4CF4-8312-5B39FB42A0BB}</Project>
       <Name>Delta.Examples %28Windows%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpSerializer.Library\SharpSerializer.Library.csproj">
+      <Project>{88AB738F-7A36-4C93-B808-B6CE2D3444B2}</Project>
+      <Name>SharpSerializer.Library</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

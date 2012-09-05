@@ -21,56 +21,56 @@ namespace Delta.Graphics
         string _fadeOutMethodString;
         Interpolation.InterpolationMethod _fadeOutInterpolator;
 
-        [ContentSerializer]
+        [ContentSerializerIgnore]
         protected BlendState _blend;
-        [ContentSerializer]
+        [ContentSerializerIgnore]
         protected float _frequency;
-        [ContentSerializer]
+        [ContentSerializerIgnore]
         protected bool _explode;
-        [ContentSerializer]
+        [ContentSerializerIgnore]
         protected Range _quantityRange;
-        [ContentSerializer]
+        [ContentSerializerIgnore]
         protected Range _lifespanRange;
-        [ContentSerializer]
+        [ContentSerializerIgnore]
         protected Range _velocityMagnitudeRange;
-        [ContentSerializer]
+        [ContentSerializerIgnore]
         protected Range _accelerationMagnitudeRange;
-        [ContentSerializer]
+        [ContentSerializerIgnore]
         protected Range _rotationRange;
-        [ContentSerializer]
+        [ContentSerializerIgnore]
         protected Range _velocityAngleRange;
-        [ContentSerializer]
+        [ContentSerializerIgnore]
         protected Range _accelerationAngleRange;
-        [ContentSerializer]
+        [ContentSerializerIgnore]
         protected Range _scaleRange;
-        [ContentSerializer]
+        [ContentSerializerIgnore]
         protected Range _fadeInRange;
-        [ContentSerializer]
+        [ContentSerializerIgnore]
         protected Range _fadeOutRange;
 
-        [ContentSerializerIgnore, DisplayName("Frequency"),Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false)]
+        [ContentSerializer, DisplayName("Frequency"),Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false)]
         public float Frequency { get { return _frequency; } set { _frequency = value; } }
-        [ContentSerializerIgnore, DisplayName("Explode"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [ContentSerializer, DisplayName("Explode"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public bool Explode { get { return _explode; } set { _explode = value; } }
-        [ContentSerializerIgnore, DisplayName("Quantity"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [ContentSerializer, DisplayName("Quantity"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public Range QuantityRange { get { return _quantityRange; } set { _quantityRange = value; } }
-        [ContentSerializerIgnore, DisplayName("Lifespan"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [ContentSerializer, DisplayName("Lifespan"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public Range LifespanRange { get { return _lifespanRange; } set { _lifespanRange = value; } }
-        [ContentSerializerIgnore, DisplayName("Velocity"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [ContentSerializer, DisplayName("Velocity"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public Range VelocityMagnitudeRange { get { return _velocityMagnitudeRange; } set { _velocityMagnitudeRange = value; } }
-        [ContentSerializerIgnore, DisplayName("Acceleration"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [ContentSerializer, DisplayName("Acceleration"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public Range AccelerationMagnitudeRange { get { return _accelerationMagnitudeRange; } set { _accelerationMagnitudeRange = value; } }
-        [ContentSerializerIgnore, DisplayName("Rotation"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [ContentSerializer, DisplayName("Rotation"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public Range RotationRange { get { return _rotationRange; } set { _rotationRange = value; } }
-        [ContentSerializerIgnore, DisplayName("Velocity Angle"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [ContentSerializer, DisplayName("Velocity Angle"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public Range VelocityAngleRange { get { return _velocityAngleRange; } set { _velocityAngleRange = value; } }
-        [ContentSerializerIgnore, DisplayName("Acceleration Angle"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [ContentSerializer, DisplayName("Acceleration Angle"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public Range AccelerationAngleRange { get { return _accelerationAngleRange; } set { _accelerationAngleRange = value; } }
-        [ContentSerializerIgnore, DisplayName("Scale"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [ContentSerializer, DisplayName("Scale"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public Range ScaleRange { get { return _scaleRange; } set { _scaleRange = value; } }
-        [ContentSerializerIgnore, DisplayName("Fade In"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [ContentSerializer, DisplayName("Fade In"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public Range FadeInRange { get { return _fadeInRange; } set { _fadeInRange = value; } }
-        [ContentSerializerIgnore, DisplayName("Fade Out"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [ContentSerializer, DisplayName("Fade Out"), Description(""), Category("Emitter"), Browsable(true), ReadOnly(false), DefaultValue(false), Editor(typeof(Delta.Editor.RangeUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
         public Range FadeOutRange { get { return _fadeOutRange; } set { _fadeOutRange = value; } }
 
         // fuck you for not serializing blendstates; the graphicsdevice isn't setup @ buildtime; warning will hardcrash visual studio

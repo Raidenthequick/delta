@@ -72,6 +72,12 @@ namespace Delta
             }
         }
 
+        /// <summary>
+        /// original, non-case-transformed name
+        /// </summary>
+        [ContentSerializer, Description("The name of the game object before case transforming is done to it."), Category("General"), DefaultValue("")]
+        public string OriginalName { get; set; }
+
         bool _isEnabled = true;
         /// <summary>
         /// Gets or sets a value indicating whether the <see cref="Entity"/> is updated.

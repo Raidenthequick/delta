@@ -18,6 +18,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using Delta.Editor;
+using Polenter.Serialization;
 #endif
 
 namespace Delta
@@ -37,6 +38,7 @@ namespace Delta
         internal static float _refreshPropertyGridTimer = 0;
         int _debugObjectIndex = 0;
         List<Entity> _debugObjects = new List<Entity>();
+        public static SharpSerializer sharpSerializer;
 #endif
 
         internal static ResourceContentManager _embedded = null;
@@ -109,6 +111,12 @@ namespace Delta
             GameForm = (Form)Control.FromHandle(Window.Handle);
             EditorForm = new EditorForm();
             EditorForm.Icon = GameForm.Icon;
+
+            //load initial dependencies
+            EditorForm.LoadDependencies();
+
+            //initialize serializer here
+            InitializeSharpSerializer();
 #endif
         }
 
@@ -293,6 +301,16 @@ namespace Delta
             //for right control, increment index
             _debugObjectIndex = (_debugObjectIndex + 1).Wrap(0, _debugObjects.Count - 1);
             SelectEntity();
+        }
+
+        public static void InitializeSharpSerializer()
+        {
+            var sxs = new SharpSerializerXmlSettings();
+            sxs.AdvancedSettings.AttributesToIgnore.Add(typeof(ContentSerializerIgnoreAttribute));
+            sxs.IncludeAssemblyVersionInTypeName = false;
+            sxs.IncludeCultureInTypeName = false;
+            sxs.IncludePublicKeyTokenInTypeName = false;
+            sharpSerializer = new SharpSerializer(sxs);
         }
 #endif
 

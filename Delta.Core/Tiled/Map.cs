@@ -3,6 +3,7 @@ using System.IO;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
@@ -10,6 +11,7 @@ using Microsoft.Xna.Framework.Content;
 using System.Xml;
 using System.Reflection;
 using System.Globalization;
+using Polenter.Serialization;
 #endif
 
 using Delta.Graphics;
@@ -67,8 +69,6 @@ namespace Delta.Tiled
             }
             return null;
         }
-
-
 #endif
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -109,6 +109,9 @@ namespace Delta.Tiled
         public Map(string fileName)
             : this()
         {
+            //initialize serializer for content
+            G.InitializeSharpSerializer();
+
             XmlDocument document = new XmlDocument(); document.Load(fileName);
             XmlNode node = document["map"];
 
@@ -140,10 +143,10 @@ namespace Delta.Tiled
                     case "layer":
                         if (!layerIsVisible)
                             continue;
-                        Add(new TileLayer(fileName, layerNode, layerName) { Name = layerName, Depth = layerOrder});
+                        Add(new TileLayer(fileName, layerNode, layerName) { Name = layerName, OriginalName = layerName, Depth = layerOrder});
                         break;
                     case "objectgroup":
-                        EntityLayer entityLayer = new EntityLayer(fileName, layerNode, layerIsVisible) { Name = layerName, Depth = layerOrder }; 
+                        EntityLayer entityLayer = new EntityLayer(fileName, layerNode, layerIsVisible) { Name = layerName, OriginalName = layerName, Depth = layerOrder }; 
                         switch (layerName.ToLower())
                         {
                             case "delta.belowground":
@@ -169,6 +172,70 @@ namespace Delta.Tiled
                 }
                 layerOrder++;
             }
+        }
+
+        /// <summary>
+        /// saves map information out to tmx file
+        /// </summary>
+        /// <param name="tmxBase">the existing XML to use as a base</param>
+        /// <param name="tmxOutPath">where to save TMX to</param>
+        public void SaveToTMX(XmlDocument tmxBase, string tmxOutPath)
+        {
+            //parse old TMX
+            foreach (EntityLayer layer in
+                from l in Children
+                where l is EntityLayer
+                select l as EntityLayer)
+            {
+                try
+                {
+                    //select this object layer
+                    XmlNode layerNode = tmxBase.SelectSingleNode("map/objectgroup[@name='" + layer.OriginalName + "']");
+
+                    //replace its inner text with serialized objects
+                    layerNode.InnerXml = SerializeObjects(layer, G.sharpSerializer);
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show("Invalid TMX file loaded: " + e.Message);
+                    return;
+                }
+            }
+
+            //finally save to file
+            try
+            {
+                tmxBase.Save(tmxOutPath);
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show("Could not save TMX file: " + e.Message);
+            }
+        }
+
+        /// <summary>
+        /// serialize all objects in layer
+        /// </summary>
+        /// <param name="layer">the object layer</param>
+        /// <param name="ss">the serializer</param>
+        /// <returns>a combined XML string of all serialized child objects</returns>
+        private string SerializeObjects(EntityLayer layer, SharpSerializer ss)
+        {
+            string result = "";
+
+            using (var stream = new MemoryStream())
+            {
+                foreach (var child in layer.Children)
+                {
+                    ss.Serialize(child, stream);
+                    stream.Write(System.Text.Encoding.UTF8.GetBytes("\r\n"), 0, 2);
+                }
+
+                //convert to string
+                result = System.Text.Encoding.UTF8.GetString(stream.ToArray());
+            }
+
+            return result;
         }
 #endif
 

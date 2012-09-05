@@ -289,7 +289,7 @@ namespace Polenter.Serialization
             {
                 // corrupted Stream
                 throw new DeserializingException(
-                    "An error occured during the deserialization. Details are in the inner exception.", exception);
+                    "An error occured during the deserialization: " + exception.Message, exception);
             }
         }
 

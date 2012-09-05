@@ -30,12 +30,14 @@
         {
             this.grdProperty = new System.Windows.Forms.PropertyGrid();
             this.listBoxObjects = new System.Windows.Forms.ListBox();
+            this.buttonLoadTMX = new System.Windows.Forms.Button();
+            this.buttonSaveTMX = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // grdProperty
             // 
             this.grdProperty.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.grdProperty.Location = new System.Drawing.Point(0, 199);
+            this.grdProperty.Location = new System.Drawing.Point(0, 233);
             this.grdProperty.Name = "grdProperty";
             this.grdProperty.Size = new System.Drawing.Size(450, 324);
             this.grdProperty.TabIndex = 0;
@@ -52,11 +54,33 @@
             this.listBoxObjects.TabIndex = 1;
             this.listBoxObjects.SelectedIndexChanged += new System.EventHandler(this.listBoxObjects_SelectedIndexChanged);
             // 
+            // buttonLoadTMX
+            // 
+            this.buttonLoadTMX.Location = new System.Drawing.Point(12, 205);
+            this.buttonLoadTMX.Name = "buttonLoadTMX";
+            this.buttonLoadTMX.Size = new System.Drawing.Size(75, 23);
+            this.buttonLoadTMX.TabIndex = 2;
+            this.buttonLoadTMX.Text = "Load TMX";
+            this.buttonLoadTMX.UseVisualStyleBackColor = true;
+            this.buttonLoadTMX.Click += new System.EventHandler(this.buttonLoadTMX_Click);
+            // 
+            // buttonSaveTMX
+            // 
+            this.buttonSaveTMX.Location = new System.Drawing.Point(93, 205);
+            this.buttonSaveTMX.Name = "buttonSaveTMX";
+            this.buttonSaveTMX.Size = new System.Drawing.Size(75, 23);
+            this.buttonSaveTMX.TabIndex = 3;
+            this.buttonSaveTMX.Text = "Save TMX";
+            this.buttonSaveTMX.UseVisualStyleBackColor = true;
+            this.buttonSaveTMX.Click += new System.EventHandler(this.buttonSaveTMX_Click);
+            // 
             // EditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(450, 523);
+            this.ClientSize = new System.Drawing.Size(450, 557);
+            this.Controls.Add(this.buttonSaveTMX);
+            this.Controls.Add(this.buttonLoadTMX);
             this.Controls.Add(this.listBoxObjects);
             this.Controls.Add(this.grdProperty);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -77,6 +101,8 @@
 
         public System.Windows.Forms.PropertyGrid grdProperty;
         private System.Windows.Forms.ListBox listBoxObjects;
+        private System.Windows.Forms.Button buttonLoadTMX;
+        private System.Windows.Forms.Button buttonSaveTMX;
 
 
     }

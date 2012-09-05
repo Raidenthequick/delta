@@ -75,20 +75,28 @@ namespace Delta
         {
             if (instance == null)
                 return null;
-            Type instanceType = instance.GetType();
-            if (instanceType.IsValueType || instanceType == typeof(string))
-                return instance; // Value types and strings are immutable
-            else if (instanceType.IsArray)
+
+            try
             {
-                int length = ((Array)instance).Length;
-                Array copied = (Array)Activator.CreateInstance(instanceType, length);
-                visited.Add(instance, copied);
-                for (int i = 0; i < length; ++i)
-                    copied.SetValue(((Array)instance).GetValue(i).Clone(visited), i);
-                return copied;
+                Type instanceType = instance.GetType();
+                if (instanceType.IsValueType || instanceType == typeof(string))
+                    return instance; // Value types and strings are immutable
+                else if (instanceType.IsArray)
+                {
+                    int length = ((Array)instance).Length;
+                    Array copied = (Array)Activator.CreateInstance(instanceType, length);
+                    visited.Add(instance, copied);
+                    for (int i = 0; i < length; ++i)
+                        copied.SetValue(((Array)instance).GetValue(i).Clone(visited), i);
+                    return copied;
+                }
+                else
+                    return Clone(instance, visited, Activator.CreateInstance(instanceType));
             }
-            else
-                return Clone(instance, visited, Activator.CreateInstance(instanceType));
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

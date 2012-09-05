@@ -15,7 +15,7 @@ namespace Delta.Examples.Entities
 {
     public class Barrel : AnimatedSpriteEntity
     {
-        protected Barrel()
+        public Barrel()
         {
             SpriteSheetName = @"Graphics\SpriteSheets\16x16";
             Origin = Vector2.One * 0.5f;
