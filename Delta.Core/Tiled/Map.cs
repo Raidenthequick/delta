@@ -205,7 +205,7 @@ namespace Delta.Tiled
             //finally save to file
             try
             {
-                tmxBase.Save(tmxOutPath);
+                tmxBase.Save(new FileStream(tmxOutPath, FileMode.Create));
             }
             catch (Exception e)
             {

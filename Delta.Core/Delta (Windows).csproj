@@ -308,6 +308,7 @@
     <ProjectReference Include="..\SharpSerializer.Library\SharpSerializer.Library.csproj">
       <Project>{88AB738F-7A36-4C93-B808-B6CE2D3444B2}</Project>
       <Name>SharpSerializer.Library</Name>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

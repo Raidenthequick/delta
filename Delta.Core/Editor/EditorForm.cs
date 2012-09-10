@@ -13,6 +13,8 @@ namespace Delta.Editor
 {
     public partial class EditorForm : Form
     {
+        private System.Xml.XmlDocument tmxBase = null;
+
         public EditorForm()
         {
             InitializeComponent();
@@ -87,9 +89,17 @@ namespace Delta.Editor
 
         private void buttonSaveTMX_Click(object sender, EventArgs e)
         {
-            var tmxBase = new System.Xml.XmlDocument();
-            tmxBase.Load(@"C:\dev\freelance\delta\Delta.Examples\Delta.ExamplesContent\Maps\Plains\3.tmx");
-            Delta.Tiled.Map.Instance.SaveToTMX(tmxBase, "test.tmx");
+            if (tmxBase == null)
+            {
+                MessageBox.Show("Select TMX to load as a base first");
+                return;
+            }
+
+            var sfd = new SaveFileDialog() { InitialDirectory = System.IO.Path.GetFullPath(@"..\..\Delta.Examples\Delta.ExamplesContent\Maps") };
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                Delta.Tiled.Map.Instance.SaveToTMX(tmxBase, sfd.FileName);
+            }
         }
 
         private void buttonLoadTMX_Click(object sender, EventArgs e)
@@ -97,18 +107,21 @@ namespace Delta.Editor
             var ofd = new OpenFileDialog() { InitialDirectory = System.IO.Path.GetFullPath(@"..\..\Delta.Examples\Delta.ExamplesContent\Maps") };
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                //backup old map
-                var oldMap = Map.Instance;
+                tmxBase = new System.Xml.XmlDocument();
+                tmxBase.Load(new FileStream(ofd.FileName, FileMode.Open));
 
-                //construct new map which reinits Instance
-                var map = new Map(ofd.FileName);
+                ////backup old map
+                //var oldMap = Map.Instance;
 
-                //turn back Instance
-                Map.Instance = oldMap;
+                ////construct new map which reinits Instance
+                //var map = new Map(ofd.FileName);
 
-                //copy new layers
-                Map.Instance._children.Clear();
-                Map.Instance._children = map._children;
+                ////turn back Instance
+                //Map.Instance = oldMap;
+
+                ////copy new layers
+                //Map.Instance._children.Clear();
+                //Map.Instance._children = map._children;
             }
         }
     }

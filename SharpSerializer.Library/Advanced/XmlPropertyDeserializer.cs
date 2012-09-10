@@ -30,6 +30,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Linq;
 using Polenter.Serialization.Advanced.Deserializing;
 using Polenter.Serialization.Advanced.Xml;
 using Polenter.Serialization.Core;
@@ -386,12 +387,43 @@ namespace Polenter.Serialization.Advanced
 
         private void parseComplexProperty(ComplexProperty property)
         {
-
             foreach (string subElement in _reader.ReadSubElements())
             {
                 if (subElement == SubElements.Properties)
                 {
                     readProperties(property.Properties, property.Type);
+                }
+            }
+
+            //parse XML attributes
+            addAttributes(property);
+        }
+
+        private void addAttributes(ComplexProperty prop)
+        {
+            //loop through .NET properties
+            foreach (var child in prop.Type.GetProperties())
+            {
+                //loop through all xml attribute attributes assigned to it
+                foreach (var attrib in
+                    from c in child.GetCustomAttributes(true)
+                    where c is XMLAttributeAttribute
+                    select c as XMLAttributeAttribute)
+                {
+                    //try reading
+                    try
+                    {
+                        SimpleProperty sp = Property.CreateInstance(PropertyArt.Simple, child.Name, child.PropertyType) as SimpleProperty;
+                        if (sp != null)
+                        {
+                            sp.Value = _reader.GetAttributeAsObject(attrib.AttributeName, child.PropertyType);
+                        }
+                        prop.Properties.Add(sp);
+                    }
+                    catch
+                    {
+                        //don't fail, continue
+                    }
                 }
             }
         }

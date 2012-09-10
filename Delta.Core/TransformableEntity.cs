@@ -68,6 +68,28 @@ namespace Delta
             }
         }
 
+        /// <summary>
+        /// X position accessor
+        /// </summary>
+        [Polenter.Serialization.XMLAttribute("x")]
+        [Browsable(false)]
+        public float TiledX
+        {
+            get { return BoundingBox.X; }
+            set { _position.X = value; }
+        }
+
+        /// <summary>
+        /// Y position accessor
+        /// </summary>
+        [Polenter.Serialization.XMLAttribute("y")]
+        [Browsable(false)]
+        public float TiledY
+        {
+            get { return BoundingBox.Y; }
+            set { _position.Y = value; }
+        }
+
         Vector2 _offset = Vector2.Zero;
         /// <summary>
         /// Gets or sets the positional offset of the <see cref="TransformableEntity"/>.
@@ -106,6 +128,28 @@ namespace Delta
                     OnPropertyChanged();
                 }
             }
+        }
+
+        /// <summary>
+        /// width accessor
+        /// </summary>
+        [Polenter.Serialization.XMLAttribute("width")]
+        [Browsable(false)]
+        public float TiledWidth
+        {
+            get { return _size.X; }
+            set { _size.X = value; }
+        }
+
+        /// <summary>
+        /// height accessor
+        /// </summary>
+        [Polenter.Serialization.XMLAttribute("height")]
+        [Browsable(false)]
+        public float TiledHeight
+        {
+            get { return _size.Y; }
+            set { _size.Y = value; }
         }
 
         Vector2 _scale = Vector2.One;
