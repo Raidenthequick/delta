@@ -31,6 +31,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
 using Polenter.Serialization.Serializing;
+using Polenter.Serialization.Core;
 
 namespace Polenter.Serialization.Advanced
 {
@@ -48,6 +49,7 @@ namespace Polenter.Serialization.Advanced
     {
         private PropertiesToIgnore _propertiesToIgnore;
         private IList<Type> _attributesToIgnore;
+        private SimpleTypes _simpleTypes;
 #if !Smartphone
         [ThreadStatic]
 #endif
@@ -86,6 +88,15 @@ namespace Polenter.Serialization.Advanced
                 return _attributesToIgnore;
             }
             set { _attributesToIgnore = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public SimpleTypes SimpleTypes
+        {
+            get { return _simpleTypes; }
+            set { _simpleTypes = value; }
         }
 
         /// <summary>

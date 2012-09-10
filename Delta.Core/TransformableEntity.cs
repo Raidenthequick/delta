@@ -90,6 +90,14 @@ namespace Delta
             set { _position.Y = value; }
         }
 
+        /// <summary>
+        /// only on intialization
+        /// </summary>
+        public void SetCorrectPosition()
+        {
+            Position += RenderOrigin - Offset;
+        }
+
         Vector2 _offset = Vector2.Zero;
         /// <summary>
         /// Gets or sets the positional offset of the <see cref="TransformableEntity"/>.

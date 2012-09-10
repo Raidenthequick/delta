@@ -310,6 +310,16 @@ namespace Delta
             sxs.IncludeAssemblyVersionInTypeName = false;
             sxs.IncludeCultureInTypeName = false;
             sxs.IncludePublicKeyTokenInTypeName = false;
+
+            //simple types to include
+            sxs.AdvancedSettings.SimpleTypes = new Polenter.Serialization.Core.SimpleTypes(new Type[]
+            {
+                typeof(Range),
+                typeof(TimedRange),
+                typeof(Vector2),
+                typeof(Vector3)
+            });
+            sxs.AdvancedSettings.SimpleValueConverter = new Delta.Serialization.DeltaSimpleValueConverter();
             sharpSerializer = new SharpSerializer(sxs);
         }
 #endif

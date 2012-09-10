@@ -44,6 +44,7 @@ namespace Polenter.Serialization.Advanced
     public sealed class XmlPropertyDeserializer : IPropertyDeserializer
     {
         private readonly IXmlReader _reader;
+        private readonly SimpleTypes _simpleTypes;
 
         /// <summary>
         /// All reference targets already processed. Used to for reference resolution.
@@ -54,9 +55,10 @@ namespace Polenter.Serialization.Advanced
         ///<summary>
         ///</summary>
         ///<param name = "reader"></param>
-        public XmlPropertyDeserializer(IXmlReader reader)
+        public XmlPropertyDeserializer(IXmlReader reader, SimpleTypes st)
         {
             _reader = reader;
+            _simpleTypes = st;
         }
 
         #region IPropertyDeserializer Members
@@ -202,7 +204,7 @@ namespace Polenter.Serialization.Advanced
         private void parseCollectionProperty(CollectionProperty property)
         {
             // ElementType
-            property.ElementType = property.Type != null ? Polenter.Serialization.Serializing.TypeInfo.GetTypeInfo(property.Type).ElementType : null;
+            property.ElementType = property.Type != null ? Polenter.Serialization.Serializing.TypeInfo.GetTypeInfo(property.Type, _simpleTypes).ElementType : null;
 
             foreach (string subElement in _reader.ReadSubElements())
             {
@@ -225,7 +227,7 @@ namespace Polenter.Serialization.Advanced
         {
             if (property.Type!=null)
             {
-                var typeInfo = Polenter.Serialization.Serializing.TypeInfo.GetTypeInfo(property.Type);
+                var typeInfo = Polenter.Serialization.Serializing.TypeInfo.GetTypeInfo(property.Type, _simpleTypes);
                 property.KeyType = typeInfo.KeyType;
                 property.ValueType = typeInfo.ElementType;
             }
@@ -291,7 +293,7 @@ namespace Polenter.Serialization.Advanced
 
         private void parseMultiDimensionalArrayProperty(MultiDimensionalArrayProperty property)
         {
-            property.ElementType = property.Type != null ? Polenter.Serialization.Serializing.TypeInfo.GetTypeInfo(property.Type).ElementType : null;
+            property.ElementType = property.Type != null ? Polenter.Serialization.Serializing.TypeInfo.GetTypeInfo(property.Type, _simpleTypes).ElementType : null;
 
             foreach (string subElement in _reader.ReadSubElements())
             {
@@ -356,7 +358,7 @@ namespace Polenter.Serialization.Advanced
         private void parseSingleDimensionalArrayProperty(SingleDimensionalArrayProperty property)
         {
             // ElementType
-            property.ElementType = property.Type != null ? Polenter.Serialization.Serializing.TypeInfo.GetTypeInfo(property.Type).ElementType : null;
+            property.ElementType = property.Type != null ? Polenter.Serialization.Serializing.TypeInfo.GetTypeInfo(property.Type, _simpleTypes).ElementType : null;
 
             // LowerBound
             property.LowerBound = _reader.GetAttributeAsInt(Attributes.LowerBound);

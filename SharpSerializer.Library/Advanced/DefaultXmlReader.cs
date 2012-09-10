@@ -176,6 +176,7 @@ namespace Polenter.Serialization.Advanced
         public object GetAttributeAsObject(string attributeName, Type expectedType)
         {
             string objectAsText = GetAttributeAsString(attributeName);
+            if (objectAsText == null) return null;
             return _valueConverter.ConvertFromString(objectAsText, expectedType);
         }
 

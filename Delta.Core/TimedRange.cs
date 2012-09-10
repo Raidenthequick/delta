@@ -102,7 +102,7 @@ namespace Delta
 
         public override string ToString()
         {
-            return String.Format("{0}:{1}:{3}", Lower, Upper, Duration);
+            return String.Format("{0}:{1}:{2}", Lower, Upper, Duration);
         }
 
     }

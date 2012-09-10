@@ -163,5 +163,24 @@ namespace Delta
             return Parse(value, CultureInfo.InvariantCulture);
         }
 
+        public static string ToString(Vector2 v)
+        {
+            var sb = new System.Text.StringBuilder();
+            sb.Append(v.X);
+            sb.Append(",");
+            sb.Append(v.Y);
+            return sb.ToString();
+        }
+
+        public static string ToString(Vector3 v)
+        {
+            var sb = new System.Text.StringBuilder();
+            sb.Append(v.X);
+            sb.Append(",");
+            sb.Append(v.Y);
+            sb.Append(",");
+            sb.Append(v.Z);
+            return sb.ToString();
+        }
     }
 }

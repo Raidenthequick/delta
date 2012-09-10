@@ -50,6 +50,11 @@ namespace Delta.Tiled
                     //finally, add
                     if (entity != null)
                     {
+                        var te = entity as TransformableEntity;
+                        if (te != null)
+                        {
+                            te.SetCorrectPosition();
+                        }
                         Add(entity);
                     }
                 }

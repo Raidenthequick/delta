@@ -102,6 +102,7 @@
     <Compile Include="Audio\ISound.cs" />
     <Compile Include="Audio\Sound1D.cs" />
     <Compile Include="Audio\Sound3D.cs" />
+    <Compile Include="Design\DeltaSimpleValueConverter.cs" />
     <Compile Include="IPoolable.cs" />
     <Compile Include="Pool.cs" />
     <Compile Include="Poolable.cs" />

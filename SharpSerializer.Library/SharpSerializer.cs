@@ -140,6 +140,7 @@ namespace Polenter.Serialization
             // PropertiesToIgnore
             PropertyProvider.PropertiesToIgnore = settings.AdvancedSettings.PropertiesToIgnore;
             PropertyProvider.AttributesToIgnore = settings.AdvancedSettings.AttributesToIgnore;
+            PropertyProvider.SimpleTypes = settings.AdvancedSettings.SimpleTypes;
             //RootName
             RootName = settings.AdvancedSettings.RootName;
             // TypeNameConverter)
@@ -161,7 +162,7 @@ namespace Polenter.Serialization
             var writer = new DefaultXmlWriter(typeNameConverter, simpleValueConverter, xmlWriterSettings);
 
             _serializer = new XmlPropertySerializer(writer);
-            _deserializer = new XmlPropertyDeserializer(reader);
+            _deserializer = new XmlPropertyDeserializer(reader, settings.AdvancedSettings.SimpleTypes);
         }
 
         private void initialize(SharpSerializerBinarySettings settings)

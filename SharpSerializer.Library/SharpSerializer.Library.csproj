@@ -83,6 +83,7 @@
     <Compile Include="Advanced\Binary\IBinaryWriter.cs" />
     <Compile Include="Advanced\Xml\IXmlWriter.cs" />
     <Compile Include="Core\DeserializingException.cs" />
+    <Compile Include="Core\SimpleTypes.cs" />
     <Compile Include="Serializing\PropertyTypeInfo.cs" />
     <Compile Include="Serializing\TypeInfoCollection.cs" />
     <Compile Include="SharpSerializerBinarySettings.cs" />

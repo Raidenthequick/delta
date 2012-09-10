@@ -151,6 +151,11 @@ namespace Polenter.Serialization.Core
         }
 
         /// <summary>
+        /// Defines what types are designated as "simple" for the [de]serializer
+        /// </summary>
+        public SimpleTypes SimpleTypes { get; set; }
+
+        /// <summary>
         ///   What name has the root item of your serialization. Default is "Root".
         /// </summary>
         public string RootName { get; set; }

@@ -102,12 +102,12 @@ namespace Polenter.Serialization.Serializing
         ///<param name = "obj"></param>
         ///<returns></returns>
         ///<exception cref = "ArgumentNullException"></exception>
-        public static TypeInfo GetTypeInfo(object obj)
+        public static TypeInfo GetTypeInfo(object obj, SimpleTypes st)
         {
             if (obj == null) throw new ArgumentNullException("obj");
 
             Type type = obj.GetType();
-            return GetTypeInfo(type);
+            return GetTypeInfo(type, st);
         }
 
 
@@ -115,7 +115,7 @@ namespace Polenter.Serialization.Serializing
         ///</summary>
         ///<param name = "type"></param>
         ///<returns></returns>
-        public static TypeInfo GetTypeInfo(Type type)
+        public static TypeInfo GetTypeInfo(Type type, SimpleTypes st)
         {
             // check if Info is in cache
             TypeInfo typeInfo = Cache.TryGetTypeInfo(type);
@@ -125,7 +125,7 @@ namespace Polenter.Serialization.Serializing
                 typeInfo = new TypeInfo();
                 typeInfo.Type = type;
 
-                typeInfo.IsSimple = Tools.IsSimple(type);   
+                typeInfo.IsSimple = st.IsSimple(type) || Tools.IsSimple(type);
 
                 // new since v.2.16
                 // check if array of byte

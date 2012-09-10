@@ -72,7 +72,7 @@ namespace Polenter.Serialization.Serializing
             if (value == null) return new NullProperty(name);
 
             // If value type is recognized, it will be taken from typeinfo cache
-            TypeInfo typeInfo = TypeInfo.GetTypeInfo(value);
+            TypeInfo typeInfo = TypeInfo.GetTypeInfo(value, _propertyProvider.SimpleTypes);
 
             // Is it simple type
             Property property = createSimpleProperty(name, typeInfo, value);
